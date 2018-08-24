@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import co.il.nmh.easy.utils.EasyInputStream;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -21,5 +22,5 @@ public class ProxyRequest
 	private String method;
 	private String requestURI;
 	private Map<String, List<String>> headers;
-	private byte[] payload;
+	private EasyInputStream payload;
 }

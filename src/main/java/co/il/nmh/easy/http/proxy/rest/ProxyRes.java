@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.il.nmh.easy.http.proxy.core.ProxyRequestHandler;
-import co.il.nmh.easy.utils.EasyUtils;
+import co.il.nmh.easy.utils.EasyInputStream;
 
 /**
  * @author Maor Hamami
@@ -42,9 +41,16 @@ public class ProxyRes
 		}
 
 		Map<String, List<String>> headers = getHeaders(httpServletRequest);
-		byte[] payload = getPayload(httpServletRequest);
+		EasyInputStream payload = new EasyInputStream(httpServletRequest.getInputStream());
 
-		return proxyRequestHandler.handle(httpServletRequest, method, requestURI, headers, payload);
+		try
+		{
+			return proxyRequestHandler.handle(httpServletRequest, method, requestURI, headers, payload);
+		}
+		finally
+		{
+			payload.close();
+		}
 	}
 
 	private Map<String, List<String>> getHeaders(HttpServletRequest httpServletRequest)
@@ -71,11 +77,5 @@ public class ProxyRes
 			}
 		}
 		return headers;
-	}
-
-	private byte[] getPayload(HttpServletRequest httpServletRequest) throws IOException
-	{
-		ServletInputStream inputStream = httpServletRequest.getInputStream();
-		return EasyUtils.inputStreamToBytes(inputStream);
 	}
 }

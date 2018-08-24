@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import co.il.nmh.easy.http.proxy.data.ProxyRequest;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
+import co.il.nmh.easy.utils.EasyInputStream;
 import co.il.nmh.easy.utils.exceptions.RestException;
 import co.il.nmh.easy.utils.rest.EasyRestClient;
 import co.il.nmh.easy.utils.rest.data.RestClientResponse;
@@ -33,7 +34,7 @@ public abstract class BaseProxyRequestHandler
 		this.urlPattern = urlPattern;
 	}
 
-	public final ResponseEntity<Object> handle(HttpServletRequest httpServletRequest, String method, String requestURI, Map<String, List<String>> headers, byte[] payload)
+	public final ResponseEntity<Object> handle(HttpServletRequest httpServletRequest, String method, String requestURI, Map<String, List<String>> headers, EasyInputStream payload)
 	{
 		ProxyRequest proxyRequest = new ProxyRequest(httpServletRequest, method, requestURI, headers, payload);
 

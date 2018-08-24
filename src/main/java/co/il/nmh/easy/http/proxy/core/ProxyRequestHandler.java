@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import co.il.nmh.easy.utils.EasyInputStream;
+
 /**
  * @author Maor Hamami
  *
@@ -58,7 +60,7 @@ public class ProxyRequestHandler
 		}
 	}
 
-	public ResponseEntity<Object> handle(HttpServletRequest httpServletRequest, String method, String requestURI, Map<String, List<String>> headers, byte[] payload)
+	public ResponseEntity<Object> handle(HttpServletRequest httpServletRequest, String method, String requestURI, Map<String, List<String>> headers, EasyInputStream payload)
 	{
 		if (null != proxyRequestHandlers)
 		{
