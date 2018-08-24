@@ -1,7 +1,5 @@
 package co.il.nmh.easy.http.proxy.rest;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.il.nmh.easy.http.proxy.core.ProxyRequestHandler;
+import co.il.nmh.easy.utils.EasyUtils;
 
 /**
  * @author Maor Hamami
@@ -77,23 +76,6 @@ public class ProxyRes
 	private byte[] getPayload(HttpServletRequest httpServletRequest) throws IOException
 	{
 		ServletInputStream inputStream = httpServletRequest.getInputStream();
-		BufferedInputStream reader = new BufferedInputStream(inputStream);
-
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-		int nRead;
-		byte[] data = new byte[16384];
-
-		while ((nRead = reader.read(data, 0, data.length)) != -1)
-		{
-			buffer.write(data, 0, nRead);
-		}
-
-		buffer.flush();
-		reader.close();
-
-		byte[] response = buffer.toByteArray();
-
-		return response;
+		return EasyUtils.inputStreamToBytes(inputStream);
 	}
 }
