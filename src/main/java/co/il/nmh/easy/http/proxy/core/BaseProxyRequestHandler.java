@@ -71,7 +71,7 @@ public abstract class BaseProxyRequestHandler
 
 	protected Object postExecute(ProxyRequest proxyRequest, RestClientResponse response) throws Exception
 	{
-		return response.getResponse();
+		return response.getResponseBody();
 	}
 
 	public abstract String getRealHost();

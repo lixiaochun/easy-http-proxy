@@ -18,7 +18,7 @@ public class MapRestClientResponseToResponseEntity
 {
 	public ResponseEntity<Object> map(RestClientResponse restClientResponse)
 	{
-		return map(restClientResponse.getResponse(), restClientResponse);
+		return map(restClientResponse.getResponseBody(), restClientResponse);
 	}
 
 	public ResponseEntity<Object> map(Object customBody, RestClientResponse restClientResponse)
