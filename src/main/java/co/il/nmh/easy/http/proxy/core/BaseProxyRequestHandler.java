@@ -15,12 +15,13 @@ import co.il.nmh.easy.utils.EasyInputStream;
 import co.il.nmh.easy.utils.exceptions.RestException;
 import co.il.nmh.easy.utils.rest.EasyRestClient;
 import co.il.nmh.easy.utils.rest.data.RestClientResponse;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Maor Hamami
  *
  */
-
+@Slf4j
 public abstract class BaseProxyRequestHandler
 {
 	protected MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity;
@@ -48,6 +49,7 @@ public abstract class BaseProxyRequestHandler
 		}
 		catch (Exception e)
 		{
+			log.error("error occured", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
