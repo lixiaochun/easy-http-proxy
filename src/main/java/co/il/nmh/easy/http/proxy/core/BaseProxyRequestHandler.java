@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import co.il.nmh.easy.http.proxy.data.ProxyRequest;
+import co.il.nmh.easy.http.proxy.exceptions.ProxyExecption;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
 import co.il.nmh.easy.utils.EasyInputStream;
 import co.il.nmh.easy.utils.exceptions.RestException;
@@ -46,6 +47,10 @@ public abstract class BaseProxyRequestHandler
 			Object responseBody = postExecute(proxyRequest, response);
 
 			return mapRestClientResponseToResponseEntity.map(responseBody, response);
+		}
+		catch (ProxyExecption e)
+		{
+			return mapRestClientResponseToResponseEntity.map(e.getRestClientResponse());
 		}
 		catch (Exception e)
 		{
