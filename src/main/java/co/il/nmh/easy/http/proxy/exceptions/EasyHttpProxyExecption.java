@@ -7,13 +7,13 @@ import co.il.nmh.easy.utils.rest.data.RestClientResponse;
  *
  */
 
-public class ProxyExecption extends Exception
+public class EasyHttpProxyExecption extends Exception
 {
 	private static final long serialVersionUID = 386247924509953809L;
 
 	private RestClientResponse restClientResponse;
 
-	public ProxyExecption(RestClientResponse restClientResponse)
+	public EasyHttpProxyExecption(RestClientResponse restClientResponse)
 	{
 		this.restClientResponse = restClientResponse;
 	}
