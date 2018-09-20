@@ -12,9 +12,9 @@ public class DefaultProxyRequestHandler extends BaseProxyRequestHandler
 {
 	private String realServerURL;
 
-	public DefaultProxyRequestHandler(MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity, String realServerURL, Pattern methodPattern, Pattern urlPattern)
+	public DefaultProxyRequestHandler(RestClient restClient, MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity, String realServerURL, Pattern methodPattern, Pattern urlPattern)
 	{
-		super(mapRestClientResponseToResponseEntity, methodPattern, urlPattern);
+		super(restClient, mapRestClientResponseToResponseEntity, methodPattern, urlPattern);
 
 		this.realServerURL = realServerURL;
 	}

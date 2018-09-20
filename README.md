@@ -7,8 +7,8 @@ the real server url, accept all methods and urls using pattern Pattern.compile("
 for example:
 ```xml
 @Bean
-public DefaultProxyRequestHandler defaultProxyRequestHandler(MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity)
+public DefaultProxyRequestHandler defaultProxyRequestHandler(RestClient restClient, MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity)
 {
-	return new DefaultProxyRequestHandler(mapRestClientResponseToResponseEntity, "http://google.com", Pattern.compile(".*"), Pattern.compile(".*"));
+	return new DefaultProxyRequestHandler(restClient, mapRestClientResponseToResponseEntity, "http://google.com", Pattern.compile(".*"), Pattern.compile(".*"));
 }
 ```

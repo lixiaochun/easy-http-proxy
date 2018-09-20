@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.il.nmh.easy.http.proxy.core.ProxyRequestHandler;
+import co.il.nmh.easy.http.proxy.core.RestClient;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
 import co.il.nmh.easy.http.proxy.rest.ProxyRes;
 
@@ -30,5 +31,11 @@ public class EasyHttpProxyConfiguration
 	public ProxyRes proxyRes()
 	{
 		return new ProxyRes();
+	}
+
+	@Bean
+	public RestClient restClient()
+	{
+		return new RestClient();
 	}
 }

@@ -14,7 +14,6 @@ import co.il.nmh.easy.http.proxy.exceptions.EasyHttpProxyExecption;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
 import co.il.nmh.easy.utils.EasyInputStream;
 import co.il.nmh.easy.utils.exceptions.RestException;
-import co.il.nmh.easy.utils.rest.EasyRestClient;
 import co.il.nmh.easy.utils.rest.data.RestClientResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,12 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class BaseProxyRequestHandler
 {
+	protected RestClient restClient;
 	protected MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity;
 	protected Pattern methodPattern;
 	protected Pattern urlPattern;
 
-	public BaseProxyRequestHandler(MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity, Pattern methodPattern, Pattern urlPattern)
+	public BaseProxyRequestHandler(RestClient restClient, MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity, Pattern methodPattern, Pattern urlPattern)
 	{
+		this.restClient = restClient;
 		this.mapRestClientResponseToResponseEntity = mapRestClientResponseToResponseEntity;
 		this.methodPattern = methodPattern;
 		this.urlPattern = urlPattern;
@@ -72,7 +73,7 @@ public abstract class BaseProxyRequestHandler
 			realHost = realHost.substring(0, realHost.length() - 1);
 		}
 
-		RestClientResponse restClientResponse = EasyRestClient.execute(realHost + proxyRequest.getRequestURI(), proxyRequest.getMethod(), proxyRequest.getHeaders(), proxyRequest.getPayload());
+		RestClientResponse restClientResponse = restClient.execute(realHost + proxyRequest.getRequestURI(), proxyRequest.getMethod(), proxyRequest.getHeaders(), proxyRequest.getPayload());
 		return restClientResponse;
 	}
 
