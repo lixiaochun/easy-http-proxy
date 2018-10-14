@@ -20,7 +20,7 @@ import lombok.ToString;
 public class UrlInfo
 {
 	private List<String> path;
-	private Map<String, String> query;
+	private Map<String, List<String>> query;
 
 	public UrlInfo(String url)
 	{
@@ -57,7 +57,12 @@ public class UrlInfo
 						String key = data[0];
 						String value = data[1];
 
-						this.query.put(key, value);
+						if (!query.contains(key))
+						{
+							this.query.put(key, new ArrayList<>());
+						}
+
+						this.query.get(key).add(value);
 					}
 				}
 			}
