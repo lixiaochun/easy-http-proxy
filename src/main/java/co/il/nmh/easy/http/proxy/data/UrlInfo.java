@@ -57,7 +57,7 @@ public class UrlInfo
 						String key = data[0];
 						String value = data[1];
 
-						if (!query.contains(key))
+						if (!this.query.containsKey(key))
 						{
 							this.query.put(key, new ArrayList<>());
 						}
