@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public abstract class TemplateProxyRequestHandler<T>
+public abstract class TemplateProxyRequestHandler<T> implements IProxyRequestHandler
 {
 	protected RestClient restClient;
 	protected MapRestClientResponseToResponseEntity mapRestClientResponseToResponseEntity;
@@ -37,6 +37,7 @@ public abstract class TemplateProxyRequestHandler<T>
 		this.urlPattern = urlPattern;
 	}
 
+	@Override
 	public final ResponseEntity<Object> handle(HttpServletRequest httpServletRequest, String method, String requestURI, Map<String, List<String>> headers, EasyInputStream payload)
 	{
 		ProxyRequest proxyRequest = new ProxyRequest(httpServletRequest, method, requestURI, headers, payload);
@@ -59,6 +60,18 @@ public abstract class TemplateProxyRequestHandler<T>
 			log.error("error occured", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Override
+	public Pattern getUrlPattern()
+	{
+		return urlPattern;
+	}
+
+	@Override
+	public Pattern getMethodPattern()
+	{
+		return methodPattern;
 	}
 
 	protected abstract T buildContext(ProxyRequest proxyRequest);

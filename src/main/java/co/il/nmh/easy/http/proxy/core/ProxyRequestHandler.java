@@ -21,20 +21,20 @@ import co.il.nmh.easy.utils.EasyInputStream;
 public class ProxyRequestHandler
 {
 	@Autowired(required = false)
-	protected List<BaseProxyRequestHandler> proxyRequestHandlers;
+	protected List<IProxyRequestHandler> proxyRequestHandlers;
 
 	@PostConstruct
 	private void init()
 	{
 		if (null != proxyRequestHandlers)
 		{
-			proxyRequestHandlers.sort(new Comparator<BaseProxyRequestHandler>()
+			proxyRequestHandlers.sort(new Comparator<IProxyRequestHandler>()
 			{
 				@Override
-				public int compare(BaseProxyRequestHandler arg1, BaseProxyRequestHandler arg0)
+				public int compare(IProxyRequestHandler arg1, IProxyRequestHandler arg0)
 				{
-					Pattern pattern0 = arg0.urlPattern;
-					Pattern pattern1 = arg1.urlPattern;
+					Pattern pattern0 = arg0.getUrlPattern();
+					Pattern pattern1 = arg1.getUrlPattern();
 
 					boolean matches0 = pattern0.matcher(pattern1.pattern()).matches();
 					boolean matches1 = pattern1.matcher(pattern0.pattern()).matches();
@@ -64,14 +64,14 @@ public class ProxyRequestHandler
 	{
 		if (null != proxyRequestHandlers)
 		{
-			for (BaseProxyRequestHandler baseProxyRequestHandler : proxyRequestHandlers)
+			for (IProxyRequestHandler proxyRequestHandler : proxyRequestHandlers)
 			{
-				Pattern methodPattern = baseProxyRequestHandler.methodPattern;
-				Pattern urlPattern = baseProxyRequestHandler.urlPattern;
+				Pattern methodPattern = proxyRequestHandler.getMethodPattern();
+				Pattern urlPattern = proxyRequestHandler.getUrlPattern();
 
 				if (methodPattern.matcher(method).matches() && urlPattern.matcher(requestURI).matches())
 				{
-					return baseProxyRequestHandler.handle(httpServletRequest, method, requestURI, headers, payload);
+					return proxyRequestHandler.handle(httpServletRequest, method, requestURI, headers, payload);
 				}
 			}
 		}
