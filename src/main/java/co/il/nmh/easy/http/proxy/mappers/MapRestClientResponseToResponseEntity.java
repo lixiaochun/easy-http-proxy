@@ -25,16 +25,19 @@ public class MapRestClientResponseToResponseEntity
 	{
 		HttpHeaders responseHeaders = new HttpHeaders();
 
-		for (Entry<String, List<String>> entry : restClientResponse.getHeaderFields().entrySet())
+		if (null != restClientResponse.getHeaderFields())
 		{
-			String key = entry.getKey();
-
-			if (null == key)
+			for (Entry<String, List<String>> entry : restClientResponse.getHeaderFields().entrySet())
 			{
-				continue;
-			}
+				String key = entry.getKey();
 
-			responseHeaders.addAll(key, entry.getValue());
+				if (null == key)
+				{
+					continue;
+				}
+
+				responseHeaders.addAll(key, entry.getValue());
+			}
 		}
 
 		return new ResponseEntity<>(customBody, responseHeaders, HttpStatus.valueOf(restClientResponse.getHttpStatus()));
