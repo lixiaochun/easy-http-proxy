@@ -13,7 +13,6 @@ import co.il.nmh.easy.http.proxy.data.ProxyRequest;
 import co.il.nmh.easy.http.proxy.exceptions.EasyHttpProxyExecption;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
 import co.il.nmh.easy.utils.EasyInputStream;
-import co.il.nmh.easy.utils.exceptions.RestException;
 import co.il.nmh.easy.utils.rest.data.RestClientResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,7 +76,7 @@ public abstract class BaseProxyRequestHandler implements IProxyRequestHandler
 	{
 	}
 
-	protected RestClientResponse execute(ProxyRequest proxyRequest) throws RestException
+	protected RestClientResponse execute(ProxyRequest proxyRequest) throws Exception
 	{
 		String realHost = getRealHost();
 

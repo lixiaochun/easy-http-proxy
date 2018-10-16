@@ -7,7 +7,7 @@ import co.il.nmh.easy.utils.rest.data.RestClientResponse;
  *
  */
 
-public class EasyHttpProxyExecption extends Exception
+public class EasyHttpProxyExecption extends RuntimeException
 {
 	private static final long serialVersionUID = 386247924509953809L;
 

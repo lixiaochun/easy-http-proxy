@@ -13,7 +13,6 @@ import co.il.nmh.easy.http.proxy.data.ProxyRequest;
 import co.il.nmh.easy.http.proxy.exceptions.EasyHttpProxyExecption;
 import co.il.nmh.easy.http.proxy.mappers.MapRestClientResponseToResponseEntity;
 import co.il.nmh.easy.utils.EasyInputStream;
-import co.il.nmh.easy.utils.exceptions.RestException;
 import co.il.nmh.easy.utils.rest.data.RestClientResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,13 +73,13 @@ public abstract class TemplateProxyRequestHandler<T> implements IProxyRequestHan
 		return methodPattern;
 	}
 
-	protected abstract T buildContext(ProxyRequest proxyRequest);
+	protected abstract T buildContext(ProxyRequest proxyRequest) throws Exception;
 
 	protected void preExecute(ProxyRequest proxyRequest, T context) throws Exception
 	{
 	}
 
-	protected RestClientResponse execute(ProxyRequest proxyRequest, T context) throws RestException
+	protected RestClientResponse execute(ProxyRequest proxyRequest, T context) throws Exception
 	{
 		String realHost = getRealHost();
 
