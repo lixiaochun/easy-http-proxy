@@ -69,7 +69,7 @@ public class ProxyRequestHandler
 				Pattern methodPattern = proxyRequestHandler.getMethodPattern();
 				Pattern urlPattern = proxyRequestHandler.getUrlPattern();
 
-				if (methodPattern.matcher(method).matches() && urlPattern.matcher(requestURI).matches())
+				if (methodPattern.matcher(method).matches() && urlPattern.matcher(httpServletRequest.getRequestURI()).matches())
 				{
 					return proxyRequestHandler.handle(httpServletRequest, method, requestURI, headers, payload);
 				}
