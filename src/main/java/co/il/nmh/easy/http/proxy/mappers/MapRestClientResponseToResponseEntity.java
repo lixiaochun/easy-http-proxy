@@ -40,7 +40,7 @@ public class MapRestClientResponseToResponseEntity
 
 		if (null != restClientResponse.getHeaderFields())
 		{
-			for (Entry<String, List<String>> entry : restClientResponse.getHeaderFields().entrySet())
+			for (Entry<String, List<String>> entry : restClientResponse.getHeaderFields().getHeaders().entrySet())
 			{
 				String key = entry.getKey();
 
