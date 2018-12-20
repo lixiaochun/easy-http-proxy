@@ -36,10 +36,10 @@ public class MapRestClientResponseToResponseEntity
 
 	public ResponseEntity<Object> map(Object customBody, RestClientResponse restClientResponse)
 	{
-		HttpHeaders responseHeaders = new HttpHeaders();
-
 		if (null != restClientResponse.getHeaderFields())
 		{
+			HttpHeaders responseHeaders = new HttpHeaders();
+
 			for (Entry<String, List<String>> entry : restClientResponse.getHeaderFields().getHeaders().entrySet())
 			{
 				String key = entry.getKey();
@@ -51,8 +51,10 @@ public class MapRestClientResponseToResponseEntity
 
 				responseHeaders.addAll(key, entry.getValue());
 			}
+
+			return new ResponseEntity<>(customBody, responseHeaders, HttpStatus.valueOf(restClientResponse.getHttpStatus()));
 		}
 
-		return new ResponseEntity<>(customBody, responseHeaders, HttpStatus.valueOf(restClientResponse.getHttpStatus()));
+		return new ResponseEntity<>(customBody, HttpStatus.valueOf(restClientResponse.getHttpStatus()));
 	}
 }
