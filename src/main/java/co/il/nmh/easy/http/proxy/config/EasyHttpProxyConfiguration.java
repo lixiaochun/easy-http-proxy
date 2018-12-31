@@ -2,6 +2,7 @@ package co.il.nmh.easy.http.proxy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 
 import co.il.nmh.easy.http.proxy.core.ProxyRequestHandler;
 import co.il.nmh.easy.http.proxy.core.RestClient;
@@ -28,14 +29,13 @@ public class EasyHttpProxyConfiguration
 	}
 
 	@Bean
-	public ProxyRes proxyRes()
-	{
-		return new ProxyRes();
-	}
-
-	@Bean
 	public RestClient restClient()
 	{
 		return new RestClient();
+	}
+
+	@RestController
+	public class ProxyResController extends ProxyRes
+	{
 	}
 }
